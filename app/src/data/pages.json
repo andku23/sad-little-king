@@ -1,12 +1,22 @@
 {
   "pages" : [
     {
-      "name": "pic 1",
+      "name": "banda",
       "keyword": "",
-      "src": "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-      "thumbnail": "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
-      "thumbnailWidth": 320,
-      "thumbnailHeight": 174,
+      "src": "banda3-150x150.png",
+      "thumbnail": "banda3-150x150.png",
+      "thumbnailWidth": 150,
+      "thumbnailHeight": 150,
+      "isSelected": true,
+      "caption": "After Rain (Jeshu John - designerspics.com)"
+    },
+	{
+      "name": "girlie",
+      "keyword": "",
+      "src": "girlie1-500x409.png",
+      "thumbnail": "girlie1-500x409.png",
+      "thumbnailWidth": 500,
+      "thumbnailHeight": 409,
       "isSelected": true,
       "caption": "After Rain (Jeshu John - designerspics.com)"
     }

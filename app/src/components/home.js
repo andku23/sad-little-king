@@ -6,24 +6,36 @@ import data from '../data/pages.json'
 class Home extends React.Component {
 
 	constructor(props){
+		//Standard React Init and binding
 		super(props);
 		this.checkPage = this.checkPage.bind(this);
+
+		//Listen for events
+		window.addEventListener('resize', this.checkPage);
+
+		//Require all images in ./imgs to be included
+		const imageFolder = require.context('../imgs', false, /\.(png|jpe?g|svg)$/);
+		let importedImages = {};
+		imageFolder.keys().map((item, index) => { importedImages[item.replace('./', '')] = imageFolder(item); });
+
+		//Init state with any initial images and
+		//make all required images referencable in state
 		this.state = 
 		{
 			images: [{
-				src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-				thumbnail: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
+				src: importedImages["banda3-150x150.png"],
+				thumbnail: importedImages["banda3-150x150.png"],
 				thumbnailWidth: 320,
 				thumbnailHeight: 174,
-				isSelected: true,
+				isSelected: false,
 				caption: "After Rain (Jeshu John - designerspics.com)"
-			},]
+			},],
+			reqimgs: importedImages 
+
 		}
 	}
 
     render() {
-        
-
         return (
             <div>
                 <label>
@@ -37,27 +49,32 @@ class Home extends React.Component {
     }
 
     checkPage(event) {
-        console.log(data);
+
+		//Debug check current images and current input text
+        console.log(this.state.images);
         console.log(document.getElementById("pageLookup").value);
+
+		//Map through and find if any matches to keywork in pages.json
         data.pages.map((item, key) => {
+				//If match add new image to state to update grid
                 if (document.getElementById("pageLookup").value == item.name) {
-                    console.log("you got it");
+                    const newImage = {
+						src: this.state.reqimgs[item.src],
+						thumbnail: this.state.reqimgs[item.thumbnail],
+						thumbnailWidth: item.thumbnailWidth,
+						thumbnailHeight: item.thumbnailHeight,
+						isSelected: false,
+						caption: document.getElementById("pageLookup").value,
+					}
+
+					this.setState(prevState => ({
+						images: [...prevState.images, newImage]
+					}))
                 }
             }   
         );
 
-        const newImage = {
-            src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-            thumbnail: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
-            thumbnailWidth: 320,
-            thumbnailHeight: 174,
-            isSelected: true,
-            caption: "After Rain (Jeshu John - designerspics.com)"
-        }
-
-		this.setState(prevState => ({
-			images: [...prevState.images, newImage]
-		}))
+        
     }
 }
 
