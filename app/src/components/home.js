@@ -5,15 +5,24 @@ import data from '../data/pages.json'
 
 class Home extends React.Component {
 
+	constructor(props){
+		super(props);
+		this.checkPage = this.checkPage.bind(this);
+		this.state = 
+		{
+			images: [{
+				src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
+				thumbnail: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
+				thumbnailWidth: 320,
+				thumbnailHeight: 174,
+				isSelected: true,
+				caption: "After Rain (Jeshu John - designerspics.com)"
+			},]
+		}
+	}
+
     render() {
-        var images = [{
-            src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-            thumbnail: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
-            thumbnailWidth: 320,
-            thumbnailHeight: 174,
-            isSelected: true,
-            caption: "After Rain (Jeshu John - designerspics.com)"
-        },]
+        
 
         return (
             <div>
@@ -22,7 +31,7 @@ class Home extends React.Component {
                          <input id="pageLookup" type="text" name="name" />
                 </label>
                 <button onClick={this.checkPage} />
-                <Gallery id = "gallery" images={images} />,
+                <Gallery id = "gallery" images={this.state.images} />,
             </div>
         );
     }
@@ -46,7 +55,9 @@ class Home extends React.Component {
             caption: "After Rain (Jeshu John - designerspics.com)"
         }
 
-        //document.getElementById("gallery").images.push(newImage);
+		this.setState(prevState => ({
+			images: [...prevState.images, newImage]
+		}))
     }
 }
 
